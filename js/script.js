@@ -1,57 +1,20 @@
-// ==========================
-// SALVAR CADASTRO
-// ==========================
-function salvarCadastro() {
-    const descricao = document.getElementById("descricao").value;
-    const setor = document.getElementById("setor").value;
-    const colaborador = document.getElementById("Colaborador").value;
-    const data = document.getElementById("data").value;
-
-    if (!descricao || setor === "selecione" || colaborador === "selecione" || !data) {
-        alert("Preencha todos os campos!");
-        return;
-    }
-
-    const processo = {
-        id: Date.now(),
-        descricao,
-        setor,
-        colaborador,
-        data,
-        status: "Pendente"
-    };
-
-    let processos = JSON.parse(localStorage.getItem("processos")) || [];
-
-    processos.push(processo);
-
-    localStorage.setItem("processos", JSON.stringify(processos));
-
-    alert("Cadastro salvo com sucesso!");
-
-    // Limpar campos
-    document.getElementById("descricao").value = "";
-    document.getElementById("setor").value = "selecione";
-    document.getElementById("Colaborador").value = "selecione";
-    document.getElementById("data").value = "";
-}
-
+// Objeto global para armazenar as instâncias dos gráficos e evitar erros de sobreposição
+let instanciasGraficos = {};
 
 // ==========================
-// LISTAR PROCESSOS
+// LISTAR
 // ==========================
 function listarProcessos() {
     const tabela = document.getElementById("tabelaProcessos");
-
-    if (!tabela) return; // evita erro se não estiver na página
-
-    tabela.innerHTML = "";
+    if (!tabela) return;
 
     const processos = JSON.parse(localStorage.getItem("processos")) || [];
 
+    tabela.innerHTML = "";
+
     processos.forEach(proc => {
 
-        const statusBadge = proc.status === "Concluído"
+        const status = proc.status === "Concluído"
             ? `<span class="badge bg-success">Concluído</span>`
             : `<span class="badge bg-warning text-dark">Pendente</span>`;
 
@@ -60,88 +23,21 @@ function listarProcessos() {
                 <td>${proc.descricao}</td>
                 <td>${proc.setor}</td>
                 <td>${proc.colaborador}</td>
-                <td>${formatarData(proc.data)}</td>
-                <td>${statusBadge}</td>
+                <td>${new Date(proc.data).toLocaleString("pt-BR")}</td>
+                <td>${status}</td>
                 <td>
-                    <button class="btn btn-sm btn-primary" onclick="abrirEdicao(${proc.id})">Editar</button>
-                    <button class="btn btn-sm btn-success" onclick="concluirProcesso(${proc.id})">✔</button>
-                    <button class="btn btn-sm btn-danger" onclick="excluirProcesso(${proc.id})">🗑</button>
+                    <button onclick="concluir(${proc.id})" class="btn btn-success btn-sm">✔</button>
+                    <button onclick="excluir(${proc.id})" class="btn btn-danger btn-sm">🗑</button>
                 </td>
             </tr>
         `;
     });
 }
 
-
 // ==========================
-// FORMATAR DATA
+// CONCLUIR
 // ==========================
-function formatarData(data) {
-    if (!data) return "";
-
-    const d = new Date(data);
-
-    return d.toLocaleString("pt-BR");
-}
-
-
-// ==========================
-// ABRIR MODAL DE EDIÇÃO
-// ==========================
-function abrirEdicao(id) {
-    const processos = JSON.parse(localStorage.getItem("processos")) || [];
-    const proc = processos.find(p => p.id === id);
-
-    if (!proc) {
-        alert("Processo não encontrado!");
-        return;
-    }
-
-    document.getElementById("editId").value = proc.id;
-    document.getElementById("editDescricao").value = proc.descricao;
-    document.getElementById("editSetor").value = proc.setor;
-    document.getElementById("editColaborador").value = proc.colaborador;
-    document.getElementById("editData").value = proc.data;
-
-    const modal = new bootstrap.Modal(document.getElementById("modalEditar"));
-    modal.show();
-}
-
-
-// ==========================
-// SALVAR EDIÇÃO
-// ==========================
-function salvarEdicao() {
-    const id = Number(document.getElementById("editId").value);
-
-    let processos = JSON.parse(localStorage.getItem("processos")) || [];
-
-    processos = processos.map(p => {
-        if (p.id === id) {
-            return {
-                ...p,
-                descricao: document.getElementById("editDescricao").value,
-                setor: document.getElementById("editSetor").value,
-                colaborador: document.getElementById("editColaborador").value,
-                data: document.getElementById("editData").value
-            };
-        }
-        return p;
-    });
-
-    localStorage.setItem("processos", JSON.stringify(processos));
-
-    listarProcessos();
-
-    const modal = bootstrap.Modal.getInstance(document.getElementById("modalEditar"));
-    if (modal) modal.hide();
-}
-
-
-// ==========================
-// CONCLUIR PROCESSO
-// ==========================
-function concluirProcesso(id) {
+function concluir(id) {
     let processos = JSON.parse(localStorage.getItem("processos")) || [];
 
     processos = processos.map(p => {
@@ -154,15 +50,13 @@ function concluirProcesso(id) {
     localStorage.setItem("processos", JSON.stringify(processos));
 
     listarProcessos();
+    gerarGraficos();
 }
 
-
 // ==========================
-// EXCLUIR PROCESSO
+// EXCLUIR
 // ==========================
-function excluirProcesso(id) {
-    if (!confirm("Deseja excluir este processo?")) return;
-
+function excluir(id) {
     let processos = JSON.parse(localStorage.getItem("processos")) || [];
 
     processos = processos.filter(p => p.id !== id);
@@ -170,35 +64,53 @@ function excluirProcesso(id) {
     localStorage.setItem("processos", JSON.stringify(processos));
 
     listarProcessos();
+    gerarGraficos();
 }
 
+// ==========================
+// GRÁFICOS (CORRIGIDO)
+// ==========================
 function gerarGraficos() {
+
     const processos = JSON.parse(localStorage.getItem("processos")) || [];
 
-    const dados = {
-        kleber: calcularPercentual(processos, "kleber"),
-        ana: calcularPercentual(processos, "ana"),
-        ph: calcularPercentual(processos, "ph"),
-        equipe: calcularPercentualGeral(processos)
+    const map = {
+        kleber: ["kleber"],
+        ana: ["ana", "ana flávia"],
+        paulo: ["ph", "paulo", "paulo henrique"]
     };
 
-    criarGrafico("graficoKleber", dados.kleber, "Kleber");
-    criarGrafico("graficoAna", dados.ana, "Ana Flávia");
-    criarGrafico("graficoPaulo", dados.ph, "Paulo Henrique");
-    criarGrafico("graficoEquipe", dados.equipe, "Equipe");
+    Object.keys(map).forEach(nome => {
+
+        const tarefas = processos.filter(p => {
+            const col = (p.colaborador || "").toLowerCase();
+            return map[nome].some(alias => col.includes(alias));
+        });
+
+        const total = tarefas.length;
+        const concluidas = tarefas.filter(t => t.status === "Concluído").length;
+
+        const percentual = total === 0
+            ? 0
+            : Math.round((concluidas / total) * 100);
+
+        const canvasId = "grafico_" + nome;
+
+        if (document.getElementById(canvasId)) {
+            criarGrafico(canvasId, percentual, nome.toUpperCase());
+        }
+    });
+
+    const equipe = calcularEquipe(processos);
+    if (document.getElementById("graficoEquipe")) {
+        criarGrafico("graficoEquipe", equipe, "EQUIPE");
+    }
 }
 
-function calcularPercentual(processos, pessoa) {
-    const tarefas = processos.filter(p => p.colaborador === pessoa);
-
-    if (tarefas.length === 0) return 0;
-
-    const concluidas = tarefas.filter(p => p.status === "Concluído");
-
-    return Math.round((concluidas.length / tarefas.length) * 100);
-}
-
-function calcularPercentualGeral(processos) {
+// ==========================
+// EQUIPE
+// ==========================
+function calcularEquipe(processos) {
     if (processos.length === 0) return 0;
 
     const concluidas = processos.filter(p => p.status === "Concluído");
@@ -206,34 +118,44 @@ function calcularPercentualGeral(processos) {
     return Math.round((concluidas.length / processos.length) * 100);
 }
 
+// ==========================
+// CRIAR GRÁFICO (COM LIMPEZA DE INSTÂNCIA)
+// ==========================
 function criarGrafico(id, percentual, nome) {
-    const ctx = document.getElementById(id);
 
-    new Chart(ctx, {
+    const el = document.getElementById(id);
+    if (!el) return;
+
+    // Destrói o gráfico existente antes de criar um novo para evitar bugs visuais
+    if (instanciasGraficos[id]) {
+        instanciasGraficos[id].destroy();
+    }
+
+    instanciasGraficos[id] = new Chart(el, {
         type: "doughnut",
         data: {
             labels: ["Concluído", "Restante"],
             datasets: [{
-                data: [percentual, 100 - percentual],
-                borderWidth: 1
+                data: [percentual, 100 - percentual]
+                // Cores padrão mantidas conforme solicitado
             }]
         },
         options: {
+            responsive: true,
             plugins: {
-                legend: {
-                    labels: {
-                        color: "white"
-                    }
-                },
                 title: {
                     display: true,
-                    text: percentual + "%",
-                    color: "white",
-                    font: {
-                        size: 20
-                    }
+                    text: nome + " - " + percentual + "%"
                 }
             }
         }
     });
 }
+
+// ==========================
+// INICIALIZAÇÃO
+// ==========================
+document.addEventListener("DOMContentLoaded", function () {
+    listarProcessos();
+    gerarGraficos();
+});

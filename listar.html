@@ -45,61 +45,54 @@
         </h2>
     </div>
 
-    <div class="container mt-4">
-        
-        <table id = tblista class="table table-hover tabela-transparente">
-            <thead class="table-dark">
-                <tr>
-                    <th>Título</th>
-                    <th>Setor</th>
-                    <th>Responsável</th>
-                    <th>Data</th>
-                    <th>Status</th>
-                    <th>Ações</th>
-                </tr>
-            </thead>
-            <tbody id="tabelaProcessos"></tbody>
-        </table>
-    </div>
+<div class="container mt-4">
+    <h2>Relação de Atividades</h2>
 
-    <!-- MODAL DE EDIÇÃO -->
-    <div class="modal fade" id="modalEditar" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
+    <table class="table table-hover tabela-transparente">
+        <thead class="table-dark">
+            <tr>
+                <th>Título</th>
+                <th>Setor</th>
+                <th>Responsável</th>
+                <th>Data</th>
+                <th>Status</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
 
-                <div class="modal-header">
-                    <h5 class="modal-title">Editar Processo</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
+        <tbody id="tabelaProcessos"></tbody>
+    </table>
+</div>
 
-                <div class="modal-body">
-                    <input type="hidden" id="editId">
+<!-- 🔥 GRÁFICOS -->
+<div class="container mt-5">
 
-                    <input id="editDescricao" class="form-control mb-2" placeholder="Descrição">
-                    <input id="editSetor" class="form-control mb-2" placeholder="Setor">
-                    <input id="editColaborador" class="form-control mb-2" placeholder="Responsável">
-                    <input type="datetime-local" id="editData" class="form-control">
-                </div>
+    <div class="row">
+        <div class="col-md-4">
+            <canvas id="grafico_kleber"></canvas>
+        </div>
 
-                <div class="modal-footer">
-                    <button class="btn btn-primary" onclick="salvarEdicao()">Salvar</button>
-                </div>
+        <div class="col-md-4">
+            <canvas id="grafico_ana"></canvas>
+        </div>
 
-            </div>
+        <div class="col-md-4">
+            <canvas id="grafico_ph"></canvas>
         </div>
     </div>
 
-    <script src="./js/bootstrap.min.js"></script>
-    <script src="./js/script.js"></script>
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <canvas id="graficoEquipe"></canvas>
+        </div>
+    </div>
 
-    <script>
-        listarProcessos();
-    </script>
+</div>
 
-    <script src="./js/popper.min.js"></script>
-    <script src="./js/bootstrap.min.js"></script>
-    <script src="./js/script.js"></script>
+<script src="./js/bootstrap.min.js"></script>
+<script src="./js/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="./js/script.js"></script>
 
 </body>
-
 </html>

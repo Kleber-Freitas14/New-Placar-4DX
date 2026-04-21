@@ -5,84 +5,62 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Placar 4DX</title>
-
     <link rel="stylesheet" href="./css/bootstrap.min.css">
     <link rel="stylesheet" href="style.css">
-
-    <!-- ✅ IMPORTANTE -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
-
     <nav class="navbar navbar-expand-lg bg-dark border-bottom border-body" data-bs-theme="dark">
         <div class="container-fluid">
             <a href="#" class="navbar-brand">
                 <img src="./img/rei.png" class="d-inline-block align-text-top" width="30">
                 PLACAR 4DX
             </a>
-
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
-
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a href="./index.html" class="nav-link">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="./cadastro-atividade.html" class="nav-link">Cadastro das Atividades</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="./listar.html" class="nav-link">Lista de Ativades</a>
-                    </li>
+                    <li class="nav-item"><a href="./index.html" class="nav-link">Home</a></li>
+                    <li class="nav-item"><a href="./cadastro-atividade.html" class="nav-link">Cadastro das Atividades</a></li>
+                    <li class="nav-item"><a href="./listar.html" class="nav-link">Lista de Atividades</a></li>
                 </ul>
             </div>
         </div>
     </nav>
 
     <div class="container mt-4">
-        <h2 id = "placar" text-center">Placar de Produtividade</h2>
+        <h2 id="placar" class="text-center">Placar de Produtividade</h2>
         <hr>
-
         <div id="placarRow" class="row text-center">
-
             <div class="col-md-3">
                 <h5>Kleber</h5>
-                <canvas id="graficoKleber"></canvas>
+                <canvas id="grafico_kleber"></canvas>
             </div>
-
             <div class="col-md-3">
                 <h5>Ana Flávia</h5>
-                <canvas id="graficoAna"></canvas>
+                <canvas id="grafico_ana"></canvas>
             </div>
-
             <div class="col-md-3">
                 <h5>Paulo Henrique</h5>
-                <canvas id="graficoPaulo"></canvas>
+                <canvas id="grafico_paulo"></canvas>
             </div>
-
             <div class="col-md-3">
                 <h5>Equipe</h5>
                 <canvas id="graficoEquipe"></canvas>
             </div>
-
         </div>
     </div>
 
-    <!-- Scripts no final -->
     <script src="./js/script.js"></script>
     <script src="./js/popper.min.js"></script>
     <script src="./js/bootstrap.min.js"></script>
 
-    <!-- ✅ Executar após carregar tudo -->
     <script>
         window.onload = function () {
             gerarGraficos();
         };
     </script>
-
 </body>
-
 </html>
