@@ -4,95 +4,84 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Placar 4DX</title>
-
+    <title>Placar 4DX - Lista</title>
     <link rel="stylesheet" href="./css/bootstrap.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
-
-
 
 <body>
     <nav class="navbar navbar-expand-lg bg-dark border-bottom border-body" data-bs-theme="dark">
         <div class="container-fluid">
             <a href="#" class="navbar-brand">
-                <img src="./img/rei.png" class="d-inline-block align-text-top" width="30" height="30">
+                <img src="./img/rei.png" class="d-inline-block align-text-top" width="30">
                 PLACAR 4DX
             </a>
-
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a href="./index.html" class="nav-link">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="./cadastro-atividade.html" class="nav-link">Cadastro das Atividades</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="./placar.html" class="nav-link">Placar</a>
-                    </li>
+                    <li class="nav-item"><a href="./index.html" class="nav-link">Home</a></li>
+                    <li class="nav-item"><a href="./cadastro-atividade.html" class="nav-link">Cadastro das
+                            Atividades</a></li>
+                    <li class="nav-item"><a href="./placar.html" class="nav-link">Placar</a></li>
                 </ul>
             </div>
         </div>
     </nav>
+
     <div class="container mt-5">
-        <h2 id="lista">
-            Relação de Atividades Cadastradas
-        </h2>
+        <h2>Relação de Atividades</h2>
+        <table class="table table-hover tabela-transparente">
+            <thead class="table-dark">
+                <tr>
+                    <th>Título</th>
+                    <th>Setor</th>
+                    <th>Responsável</th>
+                    <th>Data</th>
+                    <th>Status</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody id="tabelaProcessos"></tbody>
+        </table>
     </div>
 
-<div class="container mt-4">
-    <h2>Relação de Atividades</h2>
-
-    <table class="table table-hover tabela-transparente">
-        <thead class="table-dark">
-            <tr>
-                <th>Título</th>
-                <th>Setor</th>
-                <th>Responsável</th>
-                <th>Data</th>
-                <th>Status</th>
-                <th>Ações</th>
-            </tr>
-        </thead>
-
-        <tbody id="tabelaProcessos"></tbody>
-    </table>
-</div>
-
-<!-- 🔥 GRÁFICOS -->
-<div class="container mt-5">
-
-    <div class="row">
-        <div class="col-md-4">
-            <canvas id="grafico_kleber"></canvas>
-        </div>
-
-        <div class="col-md-4">
-            <canvas id="grafico_ana"></canvas>
-        </div>
-
-        <div class="col-md-4">
-            <canvas id="grafico_ph"></canvas>
+    <div class="modal fade" id="modalEditar" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content bg-dark text-white">
+                <div class="modal-header">
+                    <h5 class="modal-title">Editar Atividade</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" id="editId">
+                    <div class="mb-3">
+                        <label class="form-label">Descrição</label>
+                        <input type="text" id="editDescricao" class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Setor</label>
+                        <input type="text" id="editSetor" class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Colaborador</label>
+                        <input type="text" id="editColaborador" class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Data e Hora</label>
+                        <input type="datetime-local" id="editData" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" onclick="salvarEdicao()">Salvar Alterações</button>
+            </div>
         </div>
     </div>
-
-    <div class="row mt-4">
-        <div class="col-md-12">
-            <canvas id="graficoEquipe"></canvas>
-        </div>
     </div>
 
-</div>
-
-<script src="./js/bootstrap.min.js"></script>
-<script src="./js/popper.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="./js/script.js"></script>
-
+    <script src="./js/popper.min.js"></script>
+    <script src="./js/bootstrap.min.js"></script>
+    <script src="./js/script.js"></script>
 </body>
+
 </html>

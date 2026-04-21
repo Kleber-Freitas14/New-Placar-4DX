@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Placar 4DX</title>
+    <title>Placar 4DX - Produtividade</title>
     <link rel="stylesheet" href="./css/bootstrap.min.css">
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -33,19 +33,23 @@
     <div class="container mt-4">
         <h2 id="placar" class="text-center">Placar de Produtividade</h2>
         <hr>
+
         <div id="placarRow" class="row text-center">
             <div class="col-md-3">
                 <h5>Kleber</h5>
                 <canvas id="grafico_kleber"></canvas>
             </div>
+
             <div class="col-md-3">
                 <h5>Ana Flávia</h5>
                 <canvas id="grafico_ana"></canvas>
             </div>
+
             <div class="col-md-3">
                 <h5>Paulo Henrique</h5>
                 <canvas id="grafico_paulo"></canvas>
             </div>
+
             <div class="col-md-3">
                 <h5>Equipe</h5>
                 <canvas id="graficoEquipe"></canvas>
@@ -56,11 +60,6 @@
     <script src="./js/script.js"></script>
     <script src="./js/popper.min.js"></script>
     <script src="./js/bootstrap.min.js"></script>
-
-    <script>
-        window.onload = function () {
-            gerarGraficos();
-        };
-    </script>
 </body>
+
 </html>
