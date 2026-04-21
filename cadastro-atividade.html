@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Placar 4DX</title>
+
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+
+
+<body>
+    <nav class="navbar navbar-expand-lg bg-dark border-bottom border-body" data-bs-theme="dark">
+        <div class="container-fluid">
+            <a href="#" class="navbar-brand">
+                <img src="./img/rei.png" class="d-inline-block align-text-top" width="30" height="30">
+                PLACAR 4DX
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a href="./index.html" class="nav-link">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="./listar.html" class="nav-link">Lista de Atividades</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="./placar.html" class="nav-link">Placar</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h2 id="cadProc">
+            Cadastro dos Processos
+        </h2>
+        <hr>
+
+        <div class="container">
+            <div class="row custom-box flex-column align-items-center">
+
+                <div class="col-10 mb-3">
+                    <input id="descricao" class="form-control text-center" placeholder="Título do Processo">
+                </div>
+
+                <div class="col-10 mb-3">
+                    <select id="setor" class="form-control text-center">
+                        <option value="selecione">Setor Responsável</option>
+                        <option value="TI">TI</option>
+                        <option value="Assist-Adm">Assistente Administrativo</option>
+                        <option value="Supervisão">Supervisão</option>
+                    </select>
+                </div>
+
+                <div class="col-10 mb-3">
+                    <select id="Colaborador" class="form-control text-center">
+                        <option value="selecione">Responsável</option>
+                        <option value="Ana">Ana Flávia</option>
+                        <option value="PH">Paulo Henrique</option>
+                        <option value="Kleber">Kleber</option>
+                    </select>
+                </div>
+
+                <div class="col-10 mb-3 text-center">
+                    <label for="data" class="form-label text-white">Data da Entrega:</label>
+                    <input type="datetime-local" id="data" class="form-control text-center">
+                </div>
+
+            </div>
+        </div>
+        <button id="btnCadProc" type="button" onclick="salvarCadastro()" class="btn btn-primary">
+            Salvar Cadastro
+        </button>
+    </div>
+
+    <script src="./js/popper.min.js"></script>
+    <script src="./js/bootstrap.min.js"></script>
+    <script src="./js/script.js"></script>
+
+</body>
+
+</html>

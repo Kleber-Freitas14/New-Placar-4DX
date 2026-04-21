@@ -1,0 +1,139 @@
+body {
+    min-height: 100vh;
+    background:
+        url("./img/agir.png") no-repeat left 20px center,
+
+        url("./img/4DX.png") no-repeat right 20px center,
+
+        url("./img/p1.jpg") no-repeat center center;
+
+    background-size: 200px auto, 200px auto, cover;
+}
+
+#index {
+    background-color: rgb(163, 201, 235, 0.9);
+    font-weight: bold;
+    color: rgb(254, 255, 252);
+    font-size: 2rem;
+    text-align: center;
+
+    width: 30%;
+    margin: 100px auto 20px auto;
+    padding: 10px 0;
+    border-radius: 15px;
+}
+#lista {
+    background-color: rgb(163, 201, 235, 0.9);
+    font-weight: bold;
+    color: rgb(254, 255, 252);
+    font-size: 2rem;
+    text-align: center;
+
+    width: 50%;
+    margin: 10px auto 10px auto;
+    padding: 10px 0;
+    border-radius: 15px;
+}
+
+#cadProc {
+    background-color: rgb(163, 201, 235, 0.9);
+    font-weight: bold;
+    color: rgb(254, 255, 252);
+    font-size: 2rem;
+    text-align: center;
+
+    width: 35%;
+    margin: 20px auto;
+    padding: 10px 0;
+    border-radius: 15px;
+}
+
+.row {
+    background-color: rgba(163, 201, 235, 0.9);
+    width: 60%;     /* Aumentei um pouco para as caixas não ficarem apertadas */
+    padding: 20px;  /* Espaço interno para as caixas não colarem na borda azul */
+    border-radius: 15px;
+
+    display: flex;
+    justify-content: center;
+
+    /* CORREÇÃO AQUI: */
+    margin-left: auto;     /* Centraliza o bloco na página */
+    margin-right: auto;     /* Centraliza o bloco na página */
+    margin-top: 20px;     /* Distância do título acima */
+}
+
+/* Garante que a coluna dentro da row ocupe o espaço necessário */
+.row .col-5 {
+    width: 100%;    /* Faz a caixa de texto usar o espaço da tarja azul */
+    max-width: 100%;
+}
+
+#btnCadProc {
+    background-color: rgba(163, 201, 235, 0.9);
+    width: 20%;
+    padding: 15px; /* Reduzi um pouco para não ficar exagerado */
+    border-radius: 15px;
+    border: none;  /* Remove a borda padrão de botões */
+    
+    /* CENTRALIZAÇÃO E DISTÂNCIA */
+    display: block;      /* Faz o botão se comportar como um bloco */
+    margin: 30px auto;   /* 30px de distância em cima e centraliza nas laterais */
+    
+    /* ESTILO ADICIONAL */
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* Efeito de hover para ficar profissional */
+#btnCadProc:hover {
+    background-color: rgba(140, 180, 220, 1);
+    transform: scale(1.05);
+    transition: 0.3s;
+}
+
+#placar{
+    background-color: rgb(163, 201, 235, 0.9);
+    font-weight: bold;
+    color: rgb(254, 255, 252);
+    font-size: 2rem;
+    text-align: center;
+
+    width: 35%;
+    margin: 20px auto;
+    padding: 10px 0;
+    border-radius: 15px;
+}
+
+#placarRow {
+    background-color: rgba(163, 201, 235, 0.9);
+    width: 75%;
+    padding: 20px;
+    border-radius: 15px;
+    margin: 20px auto;
+}
+
+.tabela-transparente {
+    background-color: rgba(255, 255, 255, 0.2); /* transparência geral */
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+/* Cabeçalho */
+.tabela-transparente thead {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: rgb(174, 27, 27);
+}
+
+/* Linhas */
+.tabela-transparente tbody tr {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
+/* Hover */
+.tabela-transparente tbody tr:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
